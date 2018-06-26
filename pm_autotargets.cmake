@@ -212,7 +212,7 @@ endfunction()
 # Compute a directory-structure-based alias for this target.
 # For example, if we were building `pm_autotarget(NAME counter_test ...)`
 # defined in `game/counter/test/targets.cmake` we'd calculate the alias name
-# `game::counter::test::counter_test`
+# `gamelib::counter::test::counter_test`
 function(pm_build_alias_name OUT PATH)
     pm_path_to_list(PATH_LIST ${PATH})
     set(PATH_LIST ${PATH_LIST} ${ARGN})
@@ -221,8 +221,8 @@ function(pm_build_alias_name OUT PATH)
 endfunction()
 
 # Compute a CMake-friendly dotted name from an alias. For example, if we have
-# calculated the alias `game::counter::test::counter_test`, we would use
-# `game.counter.test.counter_test` as a target.
+# calculated the alias `gamelib::counter::test::counter_test`, we would use
+# `gamelib.counter.test.counter_test` as a target.
 function(pm_build_dotted_name OUT ALIAS_NAME)
     string(REGEX REPLACE "::" "." DOTTED_NAME ${ALIAS_NAME})
     set(${OUT} ${DOTTED_NAME} PARENT_SCOPE)
