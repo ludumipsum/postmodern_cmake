@@ -146,6 +146,11 @@ function(pm_autotarget)
     pm_build_alias_name(FULL_NAME ${PM_ATT_RELATIVE_TARGET_PATH} ${NAME})
     pm_build_dotted_name(TARGET_NAME ${FULL_NAME})
 
+    # If the target and alias names are identical, don't bother with an alias.
+    if(${TARGET_NAME} STREQUAL ${FULL_NAME})
+        set(FULL_NAME "")
+    endif()
+
     pm_set_if_unset(AGGREGATES "all")
 
     pm_target(
