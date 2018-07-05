@@ -10,6 +10,10 @@ include(pm_proplist)
 include(pm_variable_group)
 
 
+function(pm_include_all_targets_in_default_build)
+    set(PM_ALL_TARGETS_IN_DEFAULT_BUILD TRUE PARENT_SCOPE)
+endfunction()
+
 # TODOs:
 #   - `COMPONENT` feels like a CMake-ism. Can we do better? We're (probably)
 #     only going to be using that argument for controlling installation, but I'm
@@ -224,9 +228,9 @@ function(pm_target)
             $<INSTALL_INTERFACE:${INSTALL_INCLUDE_DIR}>
         )
 
-        # Unless we're doing CI, or we've explicitly marked this target for
+        # Unless we've exploicitly marked this target or all targets for
         # inclusion in the default build, set EXCLUDE_FROM_ALL to TRUE.
-        if(NOT (N2_CONTINUOUS_BUILD OR INCLUDE_IN_DEFAULT_BUILD))
+        if(NOT (INCLUDE_IN_DEFAULT_BUILD OR PM_ALL_TARGETS_IN_DEFAULT_BUILD))
             pm_set_target_property(${NAME} EXCLUDE_FROM_ALL TRUE)
         endif()
 
@@ -266,10 +270,9 @@ function(pm_target)
         target_link_libraries(${NAME} PRIVATE ${DEPENDS})
         target_link_libraries(${NAME} PRIVATE ${PRIVATE_DEPENDS})
 
-        # TODO: This is some duplication. Can we do DRY this and the above?
-        # Unless we're doing CI, or we've explicitly marked this target for
+        # Unless we've exploicitly marked this target or all targets for
         # inclusion in the default build, set EXCLUDE_FROM_ALL to TRUE.
-        if(NOT (N2_CONTINUOUS_BUILD OR INCLUDE_IN_DEFAULT_BUILD))
+        if(NOT (INCLUDE_IN_DEFAULT_BUILD OR PM_ALL_TARGETS_IN_DEFAULT_BUILD))
             pm_set_target_property(${NAME} EXCLUDE_FROM_ALL TRUE)
         endif()
 
