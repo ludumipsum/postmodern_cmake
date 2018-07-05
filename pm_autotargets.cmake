@@ -100,12 +100,11 @@ function(pm_parse_targets)
         set(IN "${CMAKE_CURRENT_LIST_DIR}/${IN}")
     endif()
 
-    pm_status("target discovery: using root ${IN}")
     file(GLOB_RECURSE TARGET_FILES "${IN}*/targets.cmake")
 
-    list(LENGTH TARGET_FILES NUM_ELEMS)
-    pm_status("target discovery: Discovered ${NUM_ELEMS} targets files!")
-
+    list(LENGTH TARGET_FILES COUNT)
+    pm_status("target discovery: Found ${COUNT} target file(s) below ${IN}")
+    pm_status("target discovery: Parsing target(s) relative to ${RELATIVE_FROM}...")
 
     foreach(TARGET_FILE ${TARGET_FILES})
         file(RELATIVE_PATH RELATIVE_TARGET_FILE_PATH ${RELATIVE_FROM} ${TARGET_FILE})
@@ -118,6 +117,8 @@ function(pm_parse_targets)
         set(PM_ATT_ABSOLUTE_ROOT ${RELATIVE_FROM})
         include(${TARGET_FILE})
     endforeach()
+
+    pm_status("target discovery: Found ${COUNT} target file(s) below ${IN} -- done")
 endfunction()
 
 
