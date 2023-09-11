@@ -24,8 +24,9 @@ If you'd like to start digging into the guts of this library, you should start
 with pm_autotargets.cmake first, then pm_parse_arguments.cmake. It flows from
 there. As much as a CMake library "flows," anyway.
 
-For an example of this library in action, take a look at
-https://github.com/ludumipsum/nonstd.
+For an example of this library in action, take a look at a [targets.cmake from our nonstd library][nonstd_targets].
+
+[nonstd_targets]: https://github.com/ludumipsum/nonstd/blob/master/nonstd/targets.cmake
 
 ### Did you say, `include(postmodern_cmake.test)`?
 
